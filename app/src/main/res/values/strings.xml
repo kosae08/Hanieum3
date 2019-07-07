@@ -23,5 +23,7 @@
     <string name="Birthday">생년월일</string>
     <string name="ChildInformation">자녀정보</string>
     <string name="ManagerInformation">관리자정보</string>
+    <string name="Erase">지우기</string>
     <string name="Send">보내기</string>
+    <string name="Draw_linear">그리기</string>
 </resources>

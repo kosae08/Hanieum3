@@ -1,148 +1,159 @@
 package com.example.hanieum;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.EmbossMaskFilter;
 import android.graphics.MaskFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
-import com.example.hanieum.R;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.net.ProtocolException;
 
 public class PsychoTherapy extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(new MyView(this));
+    class Point{
+        float x;
+        float y;
+        boolean check;
+        int color;
 
-
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.activity_main,null);
-        addContentView(v , new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
-
-        Button bt_Send = v.findViewById(R.id.Send);
-
-        bt_Send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"버튼클릭",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-//        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View view = inflater.inflate(R.layout.activity_main,null);
-
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setDither(true);
-        mPaint.setColor(0xFFFF0000);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeWidth(12);
-        mEmboss = new EmbossMaskFilter(new float[] { 1, 1, 1 },
-                0.4f, 6, 3.5f);
-        mBlur = new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL);
-    }
-    private Paint       mPaint;
-    private MaskFilter mEmboss;
-    private MaskFilter mBlur;
-    public void colorChanged(int color) {
-        mPaint.setColor(color);
+        public Point(float x, float y, boolean check,int color)
+        {
+            this.x = x;
+            this.y = y;
+            this.check = check;
+            this.color = color;
+        }
     }
 
-    public class MyView extends View {
+    class MyView extends View
+    {
+        public MyView(Context context) { super(context); }
 
-        private static final float MINP = 0.25f;
-        private static final float MAXP = 0.75f;
-        private Bitmap mBitmap;
-        private Canvas mCanvas;
-        private Path mPath;
-        private Paint   mBitmapPaint;
-        public MyView(Context c) {
-            super(c);
-            mPath = new Path();
-            mBitmapPaint = new Paint(Paint.DITHER_FLAG);
-        }
-
-        public MyView(Context c , AttributeSet att){
-            super(c , att);
-            mPath = new Path();
-            mBitmapPaint = new Paint(Paint.DITHER_FLAG);
-        }
-
-        public MyView(Context c , AttributeSet att , int ref){
-            super(c , att , ref);
-            mPath = new Path();
-            mBitmapPaint = new Paint(Paint.DITHER_FLAG);
-        }
-
-        @Override
-        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-            super.onSizeChanged(w, h, oldw, oldh);
-            mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-            mCanvas = new Canvas(mBitmap);
-        }
         @Override
         protected void onDraw(Canvas canvas) {
-            canvas.drawColor(0xFFAAAAAA);
-            canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
-            canvas.drawPath(mPath, mPaint);
-        }
-        private float mX, mY;
-        private static final float TOUCH_TOLERANCE = 4;
-        private void touch_start(float x, float y) {
-            mPath.reset();
-            mPath.moveTo(x, y);
-            mX = x;
-            mY = y;
-        }
-        private void touch_move(float x, float y) {
-            float dx = Math.abs(x - mX);
-            float dy = Math.abs(y - mY);
-            if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-                mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
-                mX = x;
-                mY = y;
+            Paint p = new Paint();
+            p.setStrokeWidth(10);
+            for(int i=1 ; i<points.size() ; i++)
+            {
+                p.setColor(points.get(i).color);
+                if(!points.get(i).check)
+                    continue;
+                canvas.drawLine(points.get(i-1).x,points.get(i-1).y,points.get(i).x,points.get(i).y,p);
             }
-        }
-        private void touch_up() {
-            mPath.lineTo(mX, mY);
-            // commit the path to our offscreen
-            mCanvas.drawPath(mPath, mPaint);
-            // kill this so we don't double draw
-            mPath.reset();
         }
         @Override
         public boolean onTouchEvent(MotionEvent event) {
             float x = event.getX();
             float y = event.getY();
-            switch (event.getAction()) {
+
+            switch (event.getAction())
+            {
                 case MotionEvent.ACTION_DOWN:
-                    touch_start(x, y);
-                    invalidate();
+                    points.add(new Point(x,y,false , color));
+                case MotionEvent.ACTION_MOVE :
+                    points.add(new Point(x,y,true , color));
                     break;
-                case MotionEvent.ACTION_MOVE:
-                    touch_move(x, y);
-                    invalidate();
-                    break;
-                case MotionEvent.ACTION_UP:
-                    touch_up();
-                    invalidate();
+                case MotionEvent.ACTION_UP :
                     break;
             }
+            invalidate();
             return true;
         }
+    }
+
+    ArrayList<Point> points = new ArrayList<Point>();
+    Button Draw_red_button,Draw_blue_button,Draw_black_button,Erase_button;
+    LinearLayout Drawlinear;
+    int color = Color.BLACK;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_psycho_therapy);
+
+        final Button bt_Send = findViewById(R.id.Send);
+        bt_Send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(v.getId() == R.id.Send) {
+                    //bt_Send.buildDrawingCache();
+                    //Bitmap imageView = bt_Send.getDrawingCache();
+                    //FileOutputStream FOS;
+                    File file = new File("data/test.png"); //임의로 sdcard에 test.png로 저장
+                    OutputStream outputStream = null;
+                    try {
+                        file.createNewFile();
+                        outputStream = new FileOutputStream(file);
+
+                        v.buildDrawingCache();
+                        Bitmap bitmap = v.getDrawingCache();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(getApplicationContext(),"저장했습니다", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        final MyView m = new MyView(this);
+        /* ----- 색 변경 ------ */
+        findViewById(R.id.Draw_red_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                color = Color.RED ;
+            }
+        });
+        findViewById(R.id.Draw_blue_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                color = Color.BLUE ;
+            }
+        });
+        findViewById(R.id.Draw_black_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                color = Color.BLACK ;
+            }
+        });
+
+        Erase_button = findViewById(R.id.Erase_button);
+        Drawlinear = findViewById(R.id.Draw_linear);
+        Erase_button.setOnClickListener(new View.OnClickListener() { //지우기 버튼 눌렸을때
+            @Override
+            public void onClick(View v){
+                points.clear();
+                m.invalidate();
+            }
+        });
+        Drawlinear.addView(m);
     }
 }
