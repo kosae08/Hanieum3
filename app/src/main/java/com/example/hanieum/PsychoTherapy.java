@@ -107,22 +107,29 @@ public class PsychoTherapy extends AppCompatActivity {
                     //bt_Send.buildDrawingCache();
                     //Bitmap imageView = bt_Send.getDrawingCache();
                     //FileOutputStream FOS;
-                    File file = new File("data/test.png"); //임의로 sdcard에 test.png로 저장
-                    OutputStream outputStream = null;
-                    try {
-                        file.createNewFile();
-                        outputStream = new FileOutputStream(file);
+                    Drawlinear.setDrawingCacheEnabled(true);    // 캐쉬허용
+                    // 캐쉬에서 가져온 비트맵을 복사해서 새로운 비트맵(스크린샷) 생성
+                    Bitmap screenshot = Bitmap.createBitmap(Drawlinear.getDrawingCache());
+                    Drawlinear.setDrawingCacheEnabled(false);   // 캐쉬닫기
 
-                        v.buildDrawingCache();
-                        Bitmap bitmap = v.getDrawingCache();
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    // SDCard(ExternalStorage) : 외부저장공간
+                    // 접근하려면 반드시 AndroidManifest.xml에 권한 설정을 한다.
+                    File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                    // 폴더가 있는지 확인 후 없으면 새로 만들어준다.
+                    if(!dir.exists())
+                        dir.mkdirs();
+                    FileOutputStream fos;
+
+                    try {
+                        fos = new FileOutputStream(new File(dir, "my.png"));
+                        screenshot.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                        fos.close();
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Log.e("phoro","그림저장오류",e);
                     }
-                    Toast.makeText(getApplicationContext(),"저장했습니다", Toast.LENGTH_LONG).show();
                 }
-            }
-        });
+        }
+    });
 
         final MyView m = new MyView(this);
         /* ----- 색 변경 ------ */
