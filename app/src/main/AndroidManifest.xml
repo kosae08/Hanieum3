@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HealthCare"></activity>
+        <activity android:name=".HospitalLocation"></activity>
+        <activity android:name=".PsychoTherapy" />
+        <activity android:name=".ReservationCheck" />
+        <activity android:name=".HospitalReservation" />
+        <activity android:name=".HealthCare" />
         <activity android:name=".VideoCallDetails" />
         <activity android:name=".VoiceCallDetails" />
         <activity android:name=".VoiceCall" />

@@ -23,11 +23,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         Button bt_HealthCare = findViewById(R.id.HealthCare);
-        bt_Communication.setOnClickListener(new View.OnClickListener() {
+        bt_HealthCare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HealthCare.class);
+                startActivity(intent);
             }
         });
     }

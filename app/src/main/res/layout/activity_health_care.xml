@@ -11,23 +11,31 @@
         android:id="@+id/HospitalReservation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:background="@drawable/buttonbackground"
         android:text="@string/HospitalReservation" />
 
     <Button
         android:id="@+id/ReservationCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:background="@drawable/buttonbackground"
         android:text="@string/HospitalCheck" />
 
     <Button
         android:id="@+id/PsychoTherapy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:background="@drawable/buttonbackground"
         android:text="@string/PsychoTherapy" />
 
     <Button
         android:id="@+id/HospitalLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:background="@drawable/buttonbackground"
         android:text="@string/HospitalLocation" />
 </LinearLayout>
