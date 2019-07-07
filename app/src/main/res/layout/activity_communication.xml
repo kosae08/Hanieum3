@@ -10,33 +10,21 @@
         android:layout_weight="0.3"
         android:baselineAligned="false">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/VoiceCall"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:baselineAligned="true"
-            android:orientation="horizontal"
-            android:style="?android:attr/buttonBarStyle">
+            android:layout_weight="1"
+            android:background="@drawable/buttonbackground"
+            android:text="@string/VoiceCall" />
 
-            <Button
-                android:id="@+id/VoiceCall"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/buttonbackground"
-                android:text="@string/VoiceCall" />
-
-            <Button
-                android:id="@+id/VideoCall"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/buttonbackground"
-                android:style="?android:attr/buttonBarButtonStyle"
-                android:text="@string/VideoCall"
-                android:textColor="@android:color/black" />
-        </LinearLayout>
-
+        <Button
+            android:id="@+id/VideoCall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/buttonbackground"
+            android:text="@string/VideoCall" />
     </LinearLayout>
 
     <LinearLayout

@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HospitalLocation"></activity>
+        <activity android:name=".User_Create"></activity>
+        <activity android:name=".Cloud" />
+        <activity android:name=".Message" />
+        <activity android:name=".HospitalLocation" />
         <activity android:name=".PsychoTherapy" />
         <activity android:name=".ReservationCheck" />
         <activity android:name=".HospitalReservation" />

@@ -18,4 +18,9 @@
     <string name="HospitalCheck">예약확인</string>
     <string name="PsychoTherapy">심리치료</string>
     <string name="HospitalLocation">주변위치</string>
+    <string name="Id">아이디</string>
+    <string name="Name">이름</string>
+    <string name="Birthday">생년월일</string>
+    <string name="ChildInformation">자녀정보</string>
+    <string name="ManagerInformation">관리자정보</string>
 </resources>
