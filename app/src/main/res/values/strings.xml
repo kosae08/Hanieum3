@@ -15,7 +15,7 @@
     <string name="Kindred">친척</string>
     <string name="Friend">친구</string>
     <string name="HospitalReservation">병원예약</string>
-    <stirng name="HospitalCheck">예약확인</stirng>
-    <stirng name="PsychoTherapy">심리치료</stirng>
+    <string name="HospitalCheck">예약확인</string>
+    <string name="PsychoTherapy">심리치료</string>
     <string name="HospitalLocation">주변위치</string>
 </resources>

@@ -8,26 +8,26 @@
     tools:context=".HealthCare">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/HospitalReservation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/HospitalReservation" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/ReservationCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/HospitalCheck" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/PsychoTherapy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/PsychoTherapy" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/HospitalLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/HospitalLocation" />
 </LinearLayout>
