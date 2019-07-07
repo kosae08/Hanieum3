@@ -23,4 +23,5 @@
     <string name="Birthday">생년월일</string>
     <string name="ChildInformation">자녀정보</string>
     <string name="ManagerInformation">관리자정보</string>
+    <string name="Send">보내기</string>
 </resources>

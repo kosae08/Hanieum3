@@ -28,5 +28,14 @@ public class User_Login extends AppCompatActivity {
             }
         });
 
+        Button bt_UserCreate = findViewById(R.id.UserCreate);
+        bt_UserCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), User_Create.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
