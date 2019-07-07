@@ -9,18 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VideoCallDetails"></activity>
+        <activity android:name=".HealthCare"></activity>
+        <activity android:name=".VideoCallDetails" />
         <activity android:name=".VoiceCallDetails" />
         <activity android:name=".VoiceCall" />
-        <activity android:name=".Communication" />
         <activity android:name=".VideoCall" />
+        <activity android:name=".Communication" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".User_Login">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>/></activity>
-        <activity android:name=".MainActivity"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
