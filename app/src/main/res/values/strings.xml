@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">독거노인 프로젝트</string>
+    <string name="UserName">아이디</string>
+    <string name="Password">비밀번호</string>
+    <string name="Communication">커뮤니케이션</string>
+    <string name="HealthCare">건강관리</string>
+    <string name="Login">로그인</string>
+    <string name="UserCreate">회원가입</string>
+    <string name="VoiceCall">음성통화</string>
+    <string name="VideoCall">영상통화</string>
+    <string name="Message">문자메시지</string>
+    <string name="Cloud">SNS</string>
+    <string name="Children">자녀</string>
+    <string name="GrandChild">손주</string>
+    <string name="Kindred">친척</string>
+    <string name="Friend">친구</string>
+</resources>
